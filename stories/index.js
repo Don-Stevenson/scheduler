@@ -14,6 +14,10 @@ import Show from "components/Appointment/Show";
 import Confirm from "components/Appointment/Confirm";
 import Status from "components/Appointment/Status";
 import Error from "components/Appointment/Error";
+import Create from "components/Appointment/Form";
+import Edit from "components/Appointment/Form";
+
+// styles import
 import "components/Appointment/styles.scss";
 
 
@@ -132,14 +136,14 @@ storiesOf("InterviewerList", module)
   .add("Initial", () => (
     <InterviewerList
       interviewers={interviewers}
-      setInterviewer={action("setInterviewer")}
+      onChange={onChange("setInterviewer")}
     />
   ))
   .add("Preselected", () => (
     <InterviewerList
       interviewers={interviewers}
       interviewer={3}
-      setInterviewer={action("setInterviewer")}
+      onchange={onChange("setInterviewer")}
     />
   ))
 
@@ -150,10 +154,11 @@ storiesOf("Appointment", module)
   })
   .add("Appointment", () => <Appointment />)
   .add("Appointment with Time", () => <Appointment time="12pm" />)
-  // header story
   .add("Header", () => <Header time="12pm" />)
   .add("Empty", () => <Empty onAdd={action("onAdd")} />)
   .add("Show", () => <Show student="Lydia Miller-Jones" interviewer={interviewer} onEdit={action("onEdit")} onDelete={action("onDelete")}/>)
   .add("Confirm", () => <Confirm message="Delete the appointment?" onConfirm={action("onConfirm")} onCancel={action("onCancel")}/>)
   .add("Status", () => <Status message="Deleting"/>)
   .add("Error", () => <Error message="Could not delete appointment." onClose={action("onClose")}/>)
+  .add("Create", () => <Create interviewers={interviewers} onSave={action("onSave")} onCancel={action("onCancel")}/>)
+  .add("Edit", () => <Edit name="Matt" interviewers={interviewers} interviewer={interviewer} onSave={action("onSave")} onCancel={action("onCancel")}/>)
