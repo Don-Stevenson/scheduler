@@ -5,8 +5,6 @@ import Appointment from "components/Appointment";
 import { getAppointmentsForDay } from "helpers/selectors";
 const axios = require('axios');
 
-
-
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
@@ -14,7 +12,6 @@ export default function Application(props) {
     appointments: {}
   });
   const setDay = day => setState({ ...state, day });
-  const setDays = days => setState(prev => ({ ...prev, days }));
 
   useEffect(() => {
     Promise.all([
@@ -30,7 +27,6 @@ export default function Application(props) {
   }, []);
 
   const appointmentObj = getAppointmentsForDay(state, state.day);
-
   const appointmentComponents = appointmentObj.map(appointment => {
     return (
       <Appointment key={appointment.id} {...appointment} />
