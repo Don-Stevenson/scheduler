@@ -27,7 +27,7 @@ export default function Application(props) {
     })
   }, []);
 
-  function bookInterview(id, interview) {
+  const bookInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -36,12 +36,12 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-   
+       
     return axios.put(`/api/appointments/${id}`, appointment).then(() => setState(prev => ({...state, appointments})))
   }
 
 
-  function cancelInterview(id) {
+  const cancelInterview = (id) => {
     const appointment = {
       ...state.appointments[id],
       interview: null
@@ -55,9 +55,8 @@ export default function Application(props) {
     return axios.delete(`/api/appointments/${id}`, appointment).then(() => setState(prev => ({...prev, appointments})))
   }
 
-
-
   const appointmentObj = getAppointmentsForDay(state, state.day);
+  
   const appointmentComponents = appointmentObj.map(appointment => {
     const interview = getInterview(state, appointment.interview);
     const interviewers = getInterviewersForDay(state, state.day);
