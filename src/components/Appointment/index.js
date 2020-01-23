@@ -22,6 +22,8 @@ export default function Appointment(props) {
     const SHOW = "SHOW";
     const CREATE = "CREATE";
     const SAVING = "SAVING";
+    const DELETING = "DELETING";
+    const CONFIRM = "CONFIRM";
 
     function save(name, interviewer) {
         const interview = {
@@ -33,6 +35,17 @@ export default function Appointment(props) {
             () => transition(SHOW)
         )
     };
+    function deleteAppt() {
+        transition(CONFIRM);
+    }
+
+    function confirmDeleteAppt() {
+        transition(DELETING, true);
+        props.cancelInterview(props.id).then(() => transition(EMPTY))
+    }
+
+
+
 
     const { mode, transition, back } = useVisualMode(
         props.interview ? SHOW : EMPTY
@@ -41,18 +54,22 @@ export default function Appointment(props) {
     return (
         <article className="appointment">
             <Header time={props.time} />
-            {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+            {mode === EMPTY &&
+                <Empty onAdd={() => transition(CREATE)}
+                />}
             {mode === CREATE && (
                 <Form
                     interviewers={props.interviewers}
                     onCancel={() => back()}
                     onSave={save}
+                    onDelete={deleteAppt}
                 />
             )}
             {mode === SHOW && (
                 <Show
                     student={props.interview && props.interview.student}
                     interviewer={props.interview && props.interview.interviewer}
+                    onDelete={deleteAppt}
                 />
             )}
 
@@ -61,6 +78,23 @@ export default function Appointment(props) {
                     message={SAVING}
                 />
             )}
+
+            {mode === CONFIRM && (
+                <Confirm
+                    message={"Are you sure you would like to delete?"}
+                    onConfirm={confirmDeleteAppt}
+                    onCancel={() => back()}
+                />
+            )}
+
+
+            {mode === DELETING && (
+                <Status
+                    message={DELETING}
+                />
+            )}
+
+
         </article>
 
     )
