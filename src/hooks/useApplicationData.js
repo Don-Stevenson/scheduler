@@ -6,29 +6,31 @@ const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
 function reducer(state, action) {
-    switch (action.type) {
-        case SET_DAY:
-            return { ...state, day: action.day };
-        case SET_APPLICATION_DATA:
-            return { ...state, days: action.days, appointments: action.appointments, interviewers: action.interviewers };
-        case SET_INTERVIEW:
-            const { id, interview } = action;
-
-            return {
-                ...state,
-                appointments: {
-                    ...state.appointments,
-                    [id]: {
-                        ...state.appointments[action.id],
-                        interview: action.interview ? { ...interview } : null
-                    }
+    if (action.type === SET_DAY) {
+        return { ...state, day: action.day };
+    } else if (action.type === SET_APPLICATION_DATA) {
+        return {
+            ...state,
+            days: action.days,
+            appointments: action.appointments,
+            interviewers: action.interviewers
+        };
+    } else if (action.type === SET_INTERVIEW) {
+        const { id, interview } = action;
+        return {
+            ...state,
+            appointments: {
+                ...state.appointments,
+                [id]: {
+                    ...state.appointments[action.id],
+                    interview: action.interview ? { ...interview } : null
                 }
             }
-
-        default:
-            throw new Error(
-                `Tried to reduce with unsupported action type: ${action.type}`
-            );
+        }
+    } else {
+        throw new Error(
+            `Tried to reduce with unsupported action type: ${action.type}`
+        );
     }
 }
 
@@ -47,14 +49,15 @@ export default function useApplicationData() {
         const daysData = axios.get("/api/days");
         const appointmentsData = axios.get("/api/appointments");
         const interviewersData = axios.get("/api/interviewers");
-        Promise.all([daysData, appointmentsData, interviewersData]).then(all => {
-            dispatch({
-                type: SET_APPLICATION_DATA,
-                days: all[0].data,
-                appointments: all[1].data,
-                interviewers: all[2].data
+        Promise.all([daysData, appointmentsData, interviewersData])
+            .then(all => {
+                dispatch({
+                    type: SET_APPLICATION_DATA,
+                    days: all[0].data,
+                    appointments: all[1].data,
+                    interviewers: all[2].data
+                })
             })
-        })
     }, []);
 
     // updating the database with data from the interview
