@@ -68,8 +68,8 @@ export default function useApplicationData() {
         };
         return axios.put(`/api/appointments/${id}`, appointment)
             .then(() => {
-                const dayObj = state.days.find(day => day.name === state.day);
-                state.days[dayObj.id - 1].spots--;
+                const dayObject = state.days.find(day => day.name === state.day);
+                state.days[dayObject.id - 1].spots--;
                 dispatch({ type: SET_INTERVIEW, id, interview })
             })
     }
@@ -82,9 +82,8 @@ export default function useApplicationData() {
         };
         return axios.delete(`/api/appointments/${id}`, appointment)
             .then(() => {
-                const dayObj = state.days.find(day => day.name === state.day);
-                state.days[dayObj.id - 1].spots++;
-
+                const dayObject = state.days.find(day => day.name === state.day);
+                state.days[dayObject.id - 1].spots++;
                 dispatch({ type: SET_INTERVIEW, id, interview: null })
             })
     }
