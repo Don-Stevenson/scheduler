@@ -67,7 +67,11 @@ export default function useApplicationData() {
             interview
         };
         return axios.put(`/api/appointments/${id}`, appointment)
-            .then(() => dispatch({ type: SET_INTERVIEW, id, interview }))
+            .then(() => {
+                const dayObj = state.days.find(day => day.name === state.day);
+                state.days[dayObj.id - 1].spots--;
+                dispatch({ type: SET_INTERVIEW, id, interview })
+            })
     }
 
     // delete appointment slot from database
@@ -76,9 +80,13 @@ export default function useApplicationData() {
             ...state.appointments[id],
             interview: null
         };
-
         return axios.delete(`/api/appointments/${id}`, appointment)
-            .then(() => dispatch({ type: SET_INTERVIEW, id, interview: null }))
+            .then(() => {
+                const dayObj = state.days.find(day => day.name === state.day);
+                state.days[dayObj.id - 1].spots++;
+
+                dispatch({ type: SET_INTERVIEW, id, interview: null })
+            })
     }
     return {
         state,
