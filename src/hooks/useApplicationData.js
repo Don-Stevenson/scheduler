@@ -60,7 +60,7 @@ export default function useApplicationData() {
             })
     }, []);
 
-    // updating the database with data from the interview
+    // updating the database with data from the interview & decrementing the spots count
     const bookInterview = (id, interview) => {
         const appointment = {
             ...state.appointments[id],
@@ -76,7 +76,7 @@ export default function useApplicationData() {
             })
     }
 
-    // delete appointment slot from database
+    // delete appointment slot from database & incrementing the spots count
     const cancelInterview = (id) => {
         return axios.delete(`/api/appointments/${id}`)
             .then(() => {
