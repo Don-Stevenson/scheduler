@@ -66,13 +66,13 @@ export default function useApplicationData() {
             ...state.appointments[id],
             interview
         };
-
-             axios.get(`/api/appointments/`)
-                      return axios.put(`/api/appointments/${id}`, appointment)
+        return axios.put(`/api/appointments/${id}`, appointment)
             .then(() => {
-                const dayObject = state.days.find(day => day.name === state.day);
-                state.days[dayObject.id - 1].spots--;
-                dispatch({ type: SET_INTERVIEW, id, interview })
+                if (!state.appointments[id].interview) {
+                    const dayObject = state.days.find(day => day.name === state.day);
+                    state.days[dayObject.id - 1].spots--;
+                    dispatch({ type: SET_INTERVIEW, id, interview })
+                }
             })
     }
 
