@@ -66,7 +66,9 @@ export default function useApplicationData() {
             ...state.appointments[id],
             interview
         };
-        return axios.put(`/api/appointments/${id}`, appointment)
+
+             axios.get(`/api/appointments/`)
+                      return axios.put(`/api/appointments/${id}`, appointment)
             .then(() => {
                 const dayObject = state.days.find(day => day.name === state.day);
                 state.days[dayObject.id - 1].spots--;
@@ -76,11 +78,7 @@ export default function useApplicationData() {
 
     // delete appointment slot from database
     const cancelInterview = (id) => {
-        const appointment = {
-            ...state.appointments[id],
-            interview: null
-        };
-        return axios.delete(`/api/appointments/${id}`, appointment)
+        return axios.delete(`/api/appointments/${id}`)
             .then(() => {
                 const dayObject = state.days.find(day => day.name === state.day);
                 state.days[dayObject.id - 1].spots++;

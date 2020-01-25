@@ -24,16 +24,25 @@ export default function Appointment(props) {
     const EDIT = "EDIT";
     const ERROR_SAVE = "ERROR_SAVE";
     const ERROR_DELETE = "ERROR_DELETE";
+    const ERROR_NAME = "ERROR_NAME";
+    const ERROR_INTERVIEWER = "ERROR_INTERVIEWER";
 
     const save = (name, interviewer) => {
-        const interview = {
-            student: name,
-            interviewer
-        };
-        transition(SAVING);
-        props.bookInterview(props.id, interview)
-            .then(() => transition(SHOW))
-           .catch((error) => { transition(ERROR_SAVE, true) })
+        if (name === "") {
+            transition(ERROR_NAME, true);
+        } else if (!interviewer) {
+            transition(ERROR_INTERVIEWER, true);
+        } else {
+            const interview = {
+                student: name,
+                interviewer
+            };
+            transition(SAVING);
+            props
+                .bookInterview(props.id, interview)
+                .then(() => transition(SHOW))
+                .catch((error) => { transition(ERROR_SAVE, true) })
+        }
     };
     const deleteAppt = () => {
         transition(CONFIRM);
@@ -44,7 +53,7 @@ export default function Appointment(props) {
         props
             .cancelInterview(props.id)
             .then(() => transition(EMPTY))
-           .catch((error) => { transition(ERROR_DELETE, true) })
+            .catch((error) => { transition(ERROR_DELETE, true) })
     }
     const edit = () => {
         transition(EDIT);
@@ -115,6 +124,19 @@ export default function Appointment(props) {
                     onClose={back}
                 />
             )}
+            {mode === ERROR_INTERVIEWER && (
+                <Error
+                    message={"Please select an interviewer!"}
+                    onClose={back}
+                />
+            )}
+            {mode === ERROR_NAME && (
+                <Error
+                    message={"Please enter a student name!"}
+                    onClose={back}
+                />
+            )}
+
         </article>
     )
 }
