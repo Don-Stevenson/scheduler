@@ -24,13 +24,10 @@ export default function Appointment(props) {
     const EDIT = "EDIT";
     const ERROR_SAVE = "ERROR_SAVE";
     const ERROR_DELETE = "ERROR_DELETE";
-    const ERROR_NAME = "ERROR_NAME";
     const ERROR_INTERVIEWER = "ERROR_INTERVIEWER";
 
     const save = (name, interviewer) => {
-        if (name === "") {
-            transition(ERROR_NAME, true);
-        } else if (!interviewer) {
+        if (!interviewer) {
             transition(ERROR_INTERVIEWER, true);
         } else {
             const interview = {
@@ -130,13 +127,7 @@ export default function Appointment(props) {
                     onClose={back}
                 />
             )}
-            {mode === ERROR_NAME && (
-                <Error
-                    message={"Please enter a student name!"}
-                    onClose={back}
-                />
-            )}
-
+          
         </article>
     )
 }
