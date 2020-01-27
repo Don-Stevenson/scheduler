@@ -21,7 +21,8 @@ export default function Application(props) {
     const interviewers = getInterviewersForDay(state, state.day);
 
     return (
-      <Appointment key={appointment.id}
+      <Appointment
+        key={appointment.id}
         id={appointment.id}
         time={appointment.time}
         interview={interview}

@@ -72,6 +72,8 @@ export default function useApplicationData() {
                     const dayObject = state.days.find(day => day.name === state.day);
                     state.days[dayObject.id - 1].spots--;
                     dispatch({ type: SET_INTERVIEW, id, interview })
+                } else {
+                    dispatch({ type: SET_INTERVIEW, id, interview })
                 }
             })
     }
