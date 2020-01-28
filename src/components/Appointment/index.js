@@ -127,7 +127,7 @@ export default function Appointment(props) {
                     onClose={back}
                 />
             )}
-          
+
         </article>
     )
 }

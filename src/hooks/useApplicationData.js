@@ -20,6 +20,22 @@ function reducer(state, action) {
         const { id, interview } = action;
         return {
             ...state,
+            days: state.days.map((day) => {
+                let changeInSpots = 0;
+                if (day.name === state.day) {
+                    if (interview && state.appointments[id].interview) {
+                        changeInSpots = 0;
+                    } else if (interview) {
+                        changeInSpots = -1;
+                    } else {
+                        changeInSpots = 1;
+                    }
+                }
+                return {
+                    ...day,
+                    spots: day.spots + changeInSpots
+                };
+            }),
             appointments: {
                 ...state.appointments,
                 [id]: {
@@ -69,13 +85,13 @@ export default function useApplicationData() {
         };
         return axios.put(`/api/appointments/${id}`, appointment)
             .then(() => {
-                if (!state.appointments[id].interview) {
-                    const dayObject = state.days.find(day => day.name === state.day);
-                    state.days[dayObject.id - 1].spots--;
-                    dispatch({ type: SET_INTERVIEW, id, interview })
-                } else {
-                    dispatch({ type: SET_INTERVIEW, id, interview })
-                }
+                // if (!state.appointments[id].interview) {
+                //     const dayObject = state.days.find(day => day.name === state.day);
+                //     state.days[dayObject.id - 1].spots--;
+                //     dispatch({ type: SET_INTERVIEW, id, interview })
+                // } else {
+                dispatch({ type: SET_INTERVIEW, id, interview })
+
             })
     }
 
@@ -83,8 +99,8 @@ export default function useApplicationData() {
     const cancelInterview = (id) => {
         return axios.delete(`/api/appointments/${id}`)
             .then(() => {
-                const dayObject = state.days.find(day => day.name === state.day);
-                state.days[dayObject.id - 1].spots++;
+                // const dayObject = state.days.find(day => day.name === state.day);
+                // state.days[dayObject.id - 1].stpots++;
                 dispatch({ type: SET_INTERVIEW, id, interview: null })
             })
     }
