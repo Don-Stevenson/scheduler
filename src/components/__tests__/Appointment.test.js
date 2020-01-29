@@ -18,7 +18,7 @@ import Application from "components/Application";
   A test that renders a React Component
 */
 describe("Appointment", () => {
-    it("defaults to Monday and changes the schedule when a new day is selected", () => {
-        render(<Application />);
-    });
+  it("defaults to Monday and changes the schedule when a new day is selected", () => {
+    render(<Application />);
+  });
 })

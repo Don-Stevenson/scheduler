@@ -41,10 +41,9 @@ describe("Application", () => {
     });
 
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
-    // debug();
 
     fireEvent.click(getByText(appointment, "Save"));
-    // debug();
+
 
     expect(getByText(appointment, "SAVING")).toBeInTheDocument();
 
@@ -93,7 +92,7 @@ describe("Application", () => {
 
     expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
 
-    debug();
+
   });
 
   it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
@@ -116,7 +115,7 @@ describe("Application", () => {
 
     //5. Click on "Save" button
     fireEvent.click(getByText(appointment, "Save"));
-    debug()
+
     expect(getByText(appointment, "SAVING")).toBeInTheDocument();
 
     await waitForElement(() => getByText(container, "Bob"));
@@ -153,7 +152,7 @@ describe("Application", () => {
     fireEvent.click(getByText(appointment, 'Save'));
 
     // 7. Check that the element with the text "Saving" is displayed.
-    debug()
+
     expect(getByText(appointment, 'SAVING')).toBeInTheDocument();
 
     // 8. An error should be rendered.
@@ -187,7 +186,7 @@ describe("Application", () => {
     fireEvent.click(getByText(appointment, 'Confirm'));
 
     // 6. Check that the element with the text "Deleting" is displayed.
-    debug()
+
     expect(getByText(appointment, 'DELETING')).toBeInTheDocument();
 
     // 7. An error should be rendered.
