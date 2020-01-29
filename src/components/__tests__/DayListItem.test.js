@@ -7,7 +7,7 @@ import DayListItem from "components/DayListItem";
 afterEach(cleanup);
 
 it("renders without crashing", () => {
-  render(<DayListItem />);s
+  render(<DayListItem />);
 });
 
 it("renders 'no spots remaining' when there are 0 spots", () => {

@@ -1,5 +1,6 @@
 # Interview Scheduler
-A single-page, React application that allows users to schedule, edit and delete interviews for each day of the week. This application utilizes several testing development platforms including: Storybook,Webpack Dev Server, Jest and Cypress. 
+
+A single-page, React application that allows users to schedule, edit and delete interviews for each day of the week. This application utilizes several testing development platforms including: Storybook,Webpack Dev Server, Jest and Cypress.
 
 ## Setup
 
@@ -10,6 +11,7 @@ A single-page, React application that allows users to schedule, edit and delete 
 5. Storybook Visual Testbed can be run with `npm run storybook`.
 
 ## Screenshots
+
 !["Main Interface"](https://github.com/Don-Stevenson/scheduler/blob/master/docs/Main%20interface.png)
 !["Add an interview"](https://github.com/Don-Stevenson/scheduler/blob/master/docs/Add%20Interview%20.png)
 !["Edit the interview"](https://github.com/Don-Stevenson/scheduler/blob/master/docs/Edit%20the%20interview.png)
