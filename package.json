@@ -12,7 +12,7 @@
     "react-scripts": "^5.0.1",
     "kind-of": ">=6.0.3",
     "minimist": ">=1.2.6",
-    "prismjs": ">=1.27.0"
+    "prismjs": ">=1.30.0"
   },
   "scripts": {
     "cypress": "cypress open -P .",
