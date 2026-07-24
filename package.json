@@ -36,7 +36,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.4.3",
+    "@babel/core": "^7.29.6",
     "@storybook/addon-actions": "^8.4.7",
     "@storybook/addon-backgrounds": "^8.4.7",
     "@storybook/addon-links": "^5.0.10",
